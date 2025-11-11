@@ -1,0 +1,40 @@
+.header {
+    padding-inline: 4em;
+    padding-block: 2em;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 1px solid var(--border, #EAEAEA);
+
+}
+
+.header .lead {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.header .buttons {
+    display: flex;
+    gap: 1.2em;
+}
+
+.btn {
+    padding-inline: 1.6em;
+    padding-block: 1em;
+    border-radius: 5px;
+
+    font-weight: 900;
+    font-size: 12px;
+}
+
+.btn-register {
+    background-color: var(--primary2);
+    color: white;
+}
+
+.btn-login {
+    background-color: var(--border);
+    color: var(--primary);
+}
