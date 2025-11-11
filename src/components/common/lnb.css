@@ -1,0 +1,25 @@
+.lnb {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    padding-inline: 4em;
+    padding-block: 3em;
+    background-color: white;
+}
+
+.lnb .menu-item {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+.lnb .menu-group .menu-group-header {
+    color: var(--sub-title)
+}
+
+.lnb .menu-group .menu-group-body {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+    gap: 1em;
+}
