@@ -1,0 +1,47 @@
+.post-list-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8em;
+}
+
+.post-list-page .post-item {
+    padding-inline: 2.1em;
+    padding-block: 1.7em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    border-radius: 5px;
+    border: 1px solid var(--Border, #EAEAEA);
+    background: #FFF;
+
+    /* Shadow */
+    box-shadow: 2px 1px 5px 0 rgba(0, 0, 0, 0.15);
+}
+
+.post-list-page .post-item .lead {
+    display: flex;
+    gap: 1em;
+}
+
+.post-list-page .post-item .lead .writer {
+    font-size: 13px;
+}
+
+.post-list-page .post-item .lead .post-time {
+    font-size: 10px;
+    color: var(--sub-title);
+}
+
+.post-list-page .bottom {
+    display: flex;
+    align-items: center;
+    gap: 1.2em;
+}
+
+.post-list-page .bottom .item {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+}

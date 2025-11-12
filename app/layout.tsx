@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const roboto = Roboto({
+  weight: ["100", "300", "400", "500", "700", "900"], // 사용할 굵기를 지정합니다.
   subsets: ["latin"],
+  variable: "--font-roboto", // CSS 변수 이름 변경
+  display: "swap", // 폰트 로딩 방식을 지정합니다.
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const notoSansKr = Noto_Sans_KR({
+  weight: ["100", "300", "400", "500", "700", "900"],
   subsets: ["latin"],
+  variable: "--font-noto-sans-kr",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,9 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${roboto.variable} ${notoSansKr.variable} antialiased`}>
         {children}
       </body>
     </html>

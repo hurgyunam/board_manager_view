@@ -1,25 +1,43 @@
 .lnb {
     display: flex;
     flex-direction: column;
-    gap: 2em;
-    padding-inline: 4em;
+    gap: 1em;
     padding-block: 3em;
     background-color: white;
 }
 
-.lnb .menu-item {
-    display: flex;
-    gap: 1em;
-    align-items: center;
-}
-
 .lnb .menu-group .menu-group-header {
-    color: var(--sub-title)
+    color: var(--sub-title);
+    padding-left: 4em;
 }
 
 .lnb .menu-group .menu-group-body {
     display: flex;
     flex-direction: column;
     margin-top: 1em;
+    gap: 0.6em;
+}
+
+.lnb .menu-item {
+    display: flex;
     gap: 1em;
+    padding-block: 1em;
+    align-items: center;
+    padding-left: 4em;
+    padding-right: 8em;
+
+    position: relative;
+    cursor: pointer;
+}
+
+.lnb .menu-item.active {
+    background-color: var(--sub-prime);
+}
+
+.lnb .menu-item .active-line {
+    position: absolute;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: var(--primary2);
 }
