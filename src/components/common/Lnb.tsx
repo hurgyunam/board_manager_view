@@ -52,6 +52,7 @@ export default function CommonLnb() {
             <div
               className={`menu-item ${menuItem.isActive && "active"}`}
               onClick={() => onClickMenuItem(menuItem.id)}
+              key={`common-lnb-${menuItem.id}`}
             >
               {menuItem.isActive && <div className="active-line"></div>}
               <IconChat />

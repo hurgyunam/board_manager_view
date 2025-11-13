@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
+import "./layout.css";
+import Header from "@/src/components/common/Header";
 
 const roboto = Roboto({
   weight: ["100", "300", "400", "500", "700", "900"], // 사용할 굵기를 지정합니다.
@@ -29,7 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${notoSansKr.variable} antialiased`}>
-        {children}
+        <div className="main-layout">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );
