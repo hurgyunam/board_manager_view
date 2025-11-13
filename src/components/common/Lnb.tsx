@@ -55,7 +55,7 @@ export default function CommonLnb() {
               key={`common-lnb-${menuItem.id}`}
             >
               {menuItem.isActive && <div className="active-line"></div>}
-              <IconChat />
+              <IconChat stroke={menuItem.isActive ? "primary2" : undefined} />
               {menuItem.name}
             </div>
           ))}

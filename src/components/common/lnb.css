@@ -32,6 +32,8 @@
 
 .lnb .menu-item.active {
     background-color: var(--sub-prime);
+    color: var(--primary2);
+    font-weight: 700;
 }
 
 .lnb .menu-item .active-line {

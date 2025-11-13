@@ -36,12 +36,12 @@
     cursor: pointer;
 }
 
-.btn-register {
+.header .btn-register {
     background-color: var(--primary2);
     color: white;
 }
 
-.btn-login {
+.header .btn-login {
     background-color: var(--border);
     color: var(--primary);
 }

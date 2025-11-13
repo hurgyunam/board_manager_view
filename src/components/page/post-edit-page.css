@@ -1,0 +1,58 @@
+.post-edit-page {
+    padding-inline: 4em;
+    padding-block: 3.2em;
+}
+
+.white-card {
+    border-radius: 5px;
+    border: 1px solid var(--Border, #EAEAEA);
+    background: #FFF;
+
+    /* Shadow */
+    box-shadow: 2px 1px 5px 0 rgba(0, 0, 0, 0.15);
+
+    padding-inline: 3.2em;
+    padding-block: 2.4em;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.7em;
+}
+
+.editor-container {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+    padding-inline: 1em;
+    padding-block: 1em;
+}
+
+.editor-container .editor-area {
+    height: 20em;
+}
+
+.post-edit-page .buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-edit-page .buttons .btn-image {
+    background-color: var(--primary);
+    color: white;
+}
+
+.post-edit-page .buttons .save {
+    display: flex;
+    gap: 2em;
+}
+
+.post-edit-page .buttons .save .btn-draft {
+    display: flex;
+    background-color: var(--border);
+}
+
+.post-edit-page .buttons .save .btn-publish {
+    display: flex;
+    background-color: var(--primary2);
+    color: white;
+}

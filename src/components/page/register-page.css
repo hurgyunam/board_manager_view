@@ -38,4 +38,13 @@
     display: flex;
     justify-content: center;
     opacity: 0.5;
+    background-color: var(--primary2);
+    color: white;
+}
+
+.register-page .btn-login {
+    display: flex;
+    justify-content: center;
+    background-color: var(--primary2);
+    color: white;
 }
