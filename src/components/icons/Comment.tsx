@@ -1,4 +1,9 @@
-export default function IconComment() {
+import { useState } from "react";
+
+export default function IconComment({ stroke }: { stroke?: string }) {
+  const [strokeColorCode, setStrokeColorCode] = useState<string>(
+    stroke === "white" ? "#FFF" : "#808080"
+  );
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +14,7 @@ export default function IconComment() {
     >
       <path
         d="M13.125 9.375C13.125 9.70652 12.9933 10.0245 12.7589 10.2589C12.5245 10.4933 12.2065 10.625 11.875 10.625H4.375L1.875 13.125V3.125C1.875 2.79348 2.0067 2.47554 2.24112 2.24112C2.47554 2.0067 2.79348 1.875 3.125 1.875H11.875C12.2065 1.875 12.5245 2.0067 12.7589 2.24112C12.9933 2.47554 13.125 2.79348 13.125 3.125V9.375Z"
-        stroke="#808080"
+        stroke={strokeColorCode}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

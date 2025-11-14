@@ -4,6 +4,10 @@
     gap: 1em;
     padding-block: 3em;
     background-color: white;
+
+    position: sticky;
+    top: 108px;
+    height: 100%;
 }
 
 .lnb .menu-group .menu-group-header {

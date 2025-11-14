@@ -41,6 +41,14 @@ export default function PostEditPage() {
     },
   });
 
+  const publish = () => {
+    if (editor) {
+      const json = editor.getJSON();
+
+      console.log("publish", JSON.stringify(json));
+    }
+  };
+
   return (
     <div className="post-edit-page">
       <div className="white-card">
@@ -58,7 +66,7 @@ export default function PostEditPage() {
           </div>
           <div className="save">
             <div className="btn btn-draft">Save As Draft</div>
-            <div className="btn btn-publish">
+            <div className="btn btn-publish" onClick={publish}>
               <IconPublish />
               Publish
             </div>

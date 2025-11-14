@@ -9,6 +9,10 @@
     border: 1px solid var(--border, #EAEAEA);
     background-color: white;
 
+    position: sticky;
+    width: 100vw;
+    z-index: 100;
+    top: 0;
 }
 
 .header .lead {

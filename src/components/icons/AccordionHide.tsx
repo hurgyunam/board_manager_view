@@ -1,0 +1,24 @@
+export default function IconAccordionHide() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+    >
+      <path
+        d="M9.91665 6.41667L6.99998 3.5L4.08331 6.41667"
+        stroke="#1682FD"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.91665 10.5L6.99998 7.58333L4.08331 10.5"
+        stroke="#1682FD"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

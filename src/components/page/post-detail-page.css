@@ -1,0 +1,93 @@
+.post-detail-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3em;
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.white-card .lead {
+    display: flex;
+    gap: 1em;
+}
+
+.white-card .lead .writer {
+    font-size: 13px;
+}
+
+.white-card .lead .post-time {
+    font-size: 10px;
+    color: var(--sub-title);
+}
+
+.white-card .buttons.buttons-end {
+    display: flex;
+    justify-content: end;
+}
+
+.white-card .buttons {
+    display: flex;
+    gap: 0.8em;
+}
+
+.white-card .buttons .btn-vote {
+    background-color: var(--primary);
+    color: white;
+}
+
+.white-card .buttons .btn-comment {
+    background-color: var(--primary2);
+    color: white;
+}
+
+.white-card .buttons .btn-cancel {
+    background-color: var(--border);
+    color: var(--sub-title);
+}
+
+.comment-item {
+    position: relative;
+}
+
+.comment-item .primary-line {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: var(--primary2);
+    left: 0;
+    top: 0;
+}
+
+.comment-item .sub-line {
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    background-color: var(--primary);
+    opacity: 0.5;
+    left: 0;
+    top: 0;
+}
+
+.comment-item .buttons {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 0.8em;
+}
+
+.comment-item .buttons .btn-up {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    color: var(--sub-title);
+    cursor: pointer;
+}
+
+.comment-item .buttons .btn-hide {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    color: var(--primary);
+    cursor: pointer;
+}
