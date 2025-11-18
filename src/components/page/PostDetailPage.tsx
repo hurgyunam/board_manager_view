@@ -14,10 +14,9 @@ import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
 import IconUp from "@/src/components/icons/Up";
 import { TextField } from "@mui/material";
-import IconChat from "../icons/Chat";
-import IconComment from "../icons/Comment";
-import IconThumbUp from "../icons/ThumbUp";
-import IconAccordionHide from "../icons/AccordionHide";
+import IconComment from "@/src/components/icons/Comment";
+import IconThumbUp from "@/src/components/icons/ThumbUp";
+import IconAccordionHide from "@/src/components/icons/AccordionHide";
 
 export default function PostDetailPage() {
   const [post, setPost] = useState<IPostListItem>({

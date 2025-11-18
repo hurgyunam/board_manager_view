@@ -37,7 +37,6 @@
 .register-page .btn-register {
     display: flex;
     justify-content: center;
-    opacity: 0.5;
     background-color: var(--primary2);
     color: white;
 }
