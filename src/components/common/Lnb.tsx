@@ -3,7 +3,12 @@
 import IconSearch from "@/src/components/icons/Search";
 import "./lnb.css";
 import IconChat from "@/src/components/icons/Chat";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+export interface IBoardResponse {
+  id: number;
+  name: string;
+}
 
 export interface IMenuItem {
   id: number;
@@ -12,14 +17,30 @@ export interface IMenuItem {
 }
 
 export default function CommonLnb() {
-  const [menuItems, setMenuItems] = useState<IMenuItem[]>([
-    { id: 1, name: "Board 1", isActive: false },
-    { id: 2, name: "Board 2", isActive: false },
-    { id: 3, name: "Board 3", isActive: true },
-    { id: 4, name: "Board 4", isActive: false },
-    { id: 5, name: "Board 5", isActive: false },
-    { id: 6, name: "Board 6", isActive: false },
-  ]);
+  const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
+
+  const fetchData = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    const res = await fetch(`${API_URL}/api/v1/board`, {
+      credentials: "include",
+    });
+
+    const json = await res.json();
+
+    if (json.result) {
+      setMenuItems(
+        json.data.map((item: IBoardResponse) => ({
+          ...item,
+          isActive: false,
+        }))
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const onClickMenuItem = (id: number) => {
     setMenuItems(
@@ -37,6 +58,30 @@ export default function CommonLnb() {
         }
       })
     );
+  };
+
+  const onClickAddBoard = async () => {
+    const boardName = prompt("이름을 정해주세요", "");
+
+    console.log(boardName);
+    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    const res = await fetch(`${API_URL}/api/v1/board`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        boardName,
+      }),
+    });
+
+    const json = await res.json();
+
+    if (json.result) {
+      fetchData();
+    }
   };
 
   return (
@@ -60,6 +105,9 @@ export default function CommonLnb() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="btn btn-add" onClick={onClickAddBoard}>
+        Add Board
       </div>
     </div>
   );

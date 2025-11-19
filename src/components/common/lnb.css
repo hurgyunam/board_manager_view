@@ -1,13 +1,13 @@
 .lnb {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 1em;
     padding-block: 3em;
     background-color: white;
 
     position: sticky;
     top: 108px;
-    height: 100%;
 }
 
 .lnb .menu-group .menu-group-header {
@@ -46,4 +46,9 @@
     width: 5px;
     height: 100%;
     background-color: var(--primary2);
+}
+
+.lnb .btn-add {
+    background-color: var(--primary);
+    color: white;
 }
