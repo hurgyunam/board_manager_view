@@ -1,7 +1,7 @@
 "use client";
 
 import "./post-list-page.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // 먼저, next/image에서 Image 컴포넌트를 가져와야 합니다.
 import Image from "next/image";
 import IconEye from "@/src/components/icons/Eye";
@@ -51,6 +51,28 @@ export default function PostListPage() {
       createdDate: "한달 전",
     },
   ]);
+
+  const fetchData = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    const searchParams = new URLSearchParams();
+    searchParams.append("boardId", "1");
+    searchParams.append("pageNo", "1");
+    searchParams.append("pagePostCount", "20");
+
+    const res = await fetch(`${API_URL}/api/v1/posts?${searchParams}`, {
+      credentials: "include",
+    });
+
+    const json = await res.json();
+
+    console.log("json", json);
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
+
   return (
     <div className="post-list-page">
       {posts.map((post) => (

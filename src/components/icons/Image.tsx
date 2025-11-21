@@ -16,7 +16,7 @@ export default function IconImage() {
       <path
         d="M4.60413 5.41666C5.05286 5.41666 5.41663 5.05289 5.41663 4.60416C5.41663 4.15543 5.05286 3.79166 4.60413 3.79166C4.15539 3.79166 3.79163 4.15543 3.79163 4.60416C3.79163 5.05289 4.15539 5.41666 4.60413 5.41666Z"
         stroke="white"
-        stroke-width="2"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

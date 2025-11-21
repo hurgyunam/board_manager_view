@@ -4,6 +4,7 @@ import IconSearch from "@/src/components/icons/Search";
 import "./lnb.css";
 import IconChat from "@/src/components/icons/Chat";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/src/store/useAuth";
 
 export interface IBoardResponse {
   id: number;
@@ -17,6 +18,7 @@ export interface IMenuItem {
 }
 
 export default function CommonLnb() {
+  const { data: auth } = useAuth();
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
   const fetchData = async () => {
@@ -106,9 +108,11 @@ export default function CommonLnb() {
           ))}
         </div>
       </div>
-      <div className="btn btn-add" onClick={onClickAddBoard}>
-        Add Board
-      </div>
+      {auth?.role === "ADMIN" && (
+        <div className="btn btn-add" onClick={onClickAddBoard}>
+          Add Board
+        </div>
+      )}
     </div>
   );
 }
