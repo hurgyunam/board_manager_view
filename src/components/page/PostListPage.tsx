@@ -16,47 +16,14 @@ export interface IPostListItem {
   createdDate: string;
 }
 
-export default function PostListPage() {
-  const [posts, setPosts] = useState<IPostListItem[]>([
-    {
-      id: 1,
-      title: "테스트",
-      viewCount: 244,
-      commentCount: 2,
-      writerName: "허규남",
-      createdDate: "한달 전",
-    },
-    {
-      id: 2,
-      title: "테스트",
-      viewCount: 244,
-      commentCount: 2,
-      writerName: "허규남",
-      createdDate: "한달 전",
-    },
-    {
-      id: 3,
-      title: "테스트",
-      viewCount: 244,
-      commentCount: 2,
-      writerName: "허규남",
-      createdDate: "한달 전",
-    },
-    {
-      id: 4,
-      title: "테스트",
-      viewCount: 244,
-      commentCount: 2,
-      writerName: "허규남",
-      createdDate: "한달 전",
-    },
-  ]);
+export default function PostListPage({ boardId }: { boardId: string }) {
+  const [posts, setPosts] = useState<IPostListItem[]>([]);
 
   const fetchData = async () => {
     const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
     const searchParams = new URLSearchParams();
-    searchParams.append("boardId", "1");
+    searchParams.append("boardId", boardId);
     searchParams.append("pageNo", "1");
     searchParams.append("pagePostCount", "20");
 
@@ -66,12 +33,34 @@ export default function PostListPage() {
 
     const json = await res.json();
 
+    if (json.result) {
+      const items: IPostListItem[] = json.data.content;
+      setPosts(
+        items.map((item) => {
+          return {
+            id: item.id,
+            title: item.title,
+            createdDate: item.createdDate,
+            writerName: item.writerName,
+            viewCount: 0,
+            commentCount: 0,
+          };
+        })
+      );
+    }
+
+    // createdDate
+    // id
+    // title
+    // writerName
+    // json.data.content
+
     console.log("json", json);
   };
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   return (
     <div className="post-list-page">

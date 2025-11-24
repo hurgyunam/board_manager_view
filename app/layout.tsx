@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Roboto, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import "./layout.css";
-import Header from "@/src/components/common/Header";
 import { ReactQueryProvider } from "@/src/store/ReactQueryProvider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"; // 선택적 Devtools
 
@@ -34,10 +33,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.variable} ${notoSansKr.variable} antialiased`}>
         <ReactQueryProvider>
-          <div className="main-layout">
-            <Header />
-            {children}
-          </div>
+          {children}
           <ReactQueryDevtools initialIsOpen={false} />
         </ReactQueryProvider>
       </body>

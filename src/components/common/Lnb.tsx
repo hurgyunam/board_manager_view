@@ -5,6 +5,7 @@ import "./lnb.css";
 import IconChat from "@/src/components/icons/Chat";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/src/store/useAuth";
+import Link from "next/link";
 
 export interface IBoardResponse {
   id: number;
@@ -17,7 +18,7 @@ export interface IMenuItem {
   isActive: boolean;
 }
 
-export default function CommonLnb() {
+export default function CommonLnb({ boardId }: { boardId: string }) {
   const { data: auth } = useAuth();
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
 
@@ -34,7 +35,7 @@ export default function CommonLnb() {
       setMenuItems(
         json.data.map((item: IBoardResponse) => ({
           ...item,
-          isActive: false,
+          isActive: item.id.toString() === boardId,
         }))
       );
     }
@@ -43,24 +44,6 @@ export default function CommonLnb() {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const onClickMenuItem = (id: number) => {
-    setMenuItems(
-      menuItems.map((menuItem) => {
-        if (menuItem.id === id) {
-          return {
-            ...menuItem,
-            isActive: true,
-          };
-        } else {
-          return {
-            ...menuItem,
-            isActive: false,
-          };
-        }
-      })
-    );
-  };
 
   const onClickAddBoard = async () => {
     const boardName = prompt("이름을 정해주세요", "");
@@ -96,15 +79,15 @@ export default function CommonLnb() {
         <div className="menu-group-header">MENU</div>
         <div className="menu-group-body">
           {menuItems.map((menuItem) => (
-            <div
+            <Link
               className={`menu-item ${menuItem.isActive && "active"}`}
-              onClick={() => onClickMenuItem(menuItem.id)}
               key={`common-lnb-${menuItem.id}`}
+              href={`/board/${menuItem.id}`}
             >
               {menuItem.isActive && <div className="active-line"></div>}
               <IconChat stroke={menuItem.isActive ? "primary2" : undefined} />
               {menuItem.name}
-            </div>
+            </Link>
           ))}
         </div>
       </div>

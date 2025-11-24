@@ -1,5 +1,5 @@
 import PostListPage from "@/src/components/page/PostListPage";
 
 export default function Home() {
-  return <PostListPage />;
+  return <PostListPage boardId="1" />;
 }
