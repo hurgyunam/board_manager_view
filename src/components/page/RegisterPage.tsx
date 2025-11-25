@@ -11,12 +11,14 @@ interface ValidationErrors {
   username?: string;
   password?: string;
   email?: string;
+  nickname?: string;
   form?: string; // 전체 폼 에러
 }
 
 export default function RegisterPage() {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordRepeat, setPasswordRepeat] = useState<string>("");
   const [errors, setErrors] = useState<ValidationErrors>({});
@@ -29,6 +31,10 @@ export default function RegisterPage() {
 
     if (username.length < 4 || !/^[a-zA-Z0-9]+$/.test(username)) {
       newErrors.username = "아이디는 4자 이상의 영문/숫자이어야 합니다.";
+      isValid = false;
+    }
+    if (nickname.length < 2) {
+      newErrors.nickname = "닉네임은 2자 이상이어야 합니다.";
       isValid = false;
     }
     if (password.length < 6) {
@@ -64,6 +70,7 @@ export default function RegisterPage() {
         username,
         email,
         password,
+        nickname,
       }),
     });
 
@@ -101,6 +108,15 @@ export default function RegisterPage() {
             error={!!errors.email}
             helperText={errors.email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            label="Nickname"
+            variant="filled"
+            sx={TextFieldSx}
+            value={nickname}
+            error={!!errors.nickname}
+            helperText={errors.nickname}
+            onChange={(e) => setNickname(e.target.value)}
           />
           <TextField
             label="Password"

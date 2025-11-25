@@ -3,9 +3,9 @@
 import "./post-edit-page.css";
 import "./post-detail-page.css";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IPostListItem } from "./PostListPage";
-import { EditorContent, useEditor } from "@tiptap/react";
+import { Content, Editor, EditorContent, useEditor } from "@tiptap/react";
 import { Image as TiptapImage } from "@tiptap/extension-image";
 import Document from "@tiptap/extension-document";
 import Paragraph from "@tiptap/extension-paragraph";
@@ -17,8 +17,25 @@ import { TextField } from "@mui/material";
 import IconComment from "@/src/components/icons/Comment";
 import IconThumbUp from "@/src/components/icons/ThumbUp";
 import IconAccordionHide from "@/src/components/icons/AccordionHide";
+import ImageResize from "tiptap-extension-resize-image";
+import { TextStyle } from "@tiptap/extension-text-style";
+import { TextAlign } from "@tiptap/extension-text-align";
 
-export default function PostDetailPage() {
+export interface IComment {
+  comment: string;
+  createdDate: string;
+  id: number;
+  parentCommentId?: number;
+  writerName: string;
+}
+
+export default function PostDetailPage({
+  boardId,
+  postId,
+}: {
+  boardId: string;
+  postId: string;
+}) {
   const [post, setPost] = useState<IPostListItem>({
     id: 1,
     title: "테스트",
@@ -28,15 +45,9 @@ export default function PostDetailPage() {
     createdDate: "한달 전",
   });
 
-  const content = {
-    type: "doc",
-    content: [
-      {
-        type: "paragraph",
-        content: [{ type: "text", text: "안녕하세요, Tiptap 에디터입니다!" }],
-      },
-    ],
-  };
+  const [content, setContent] = useState<Content | null>(null);
+  const [comment, setComment] = useState<string>("");
+  const [comments, setComments] = useState<IComment[]>([]);
 
   const editor = useEditor({
     // 사용할 확장 기능 목록
@@ -51,12 +62,83 @@ export default function PostDetailPage() {
         inline: true,
         allowBase64: true, // 이미지 URL 대신 Base64 인코딩된 데이터를 사용할 수 있게 합니다 (테스트용, 프로덕션 환경 비추천)
       }),
+      ImageResize,
+      TextStyle,
+      TextAlign,
     ],
-    // 초기 콘텐츠 (선택 사항)
-    content,
+    content: {
+      type: "doc",
+      content: [
+        {
+          type: "paragraph",
+          content: [{ type: "text", text: "안녕하세요, Tiptap 에디터입니다!" }],
+        },
+      ],
+    },
     editable: false,
     immediatelyRender: false,
   });
+
+  const fetchData = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    const res = await fetch(`${API_URL}/api/v1/posts/${postId}`, {
+      credentials: "include",
+    });
+
+    const json = await res.json();
+
+    if (json.result) {
+      setPost({
+        id: json.data.id,
+        title: json.data.title,
+        viewCount: 0,
+        commentCount: 0,
+        writerName: json.data.writerName,
+        createdDate: json.data.createdDate,
+      });
+
+      const content: Content = JSON.parse(json.data.content);
+
+      setContent(content);
+
+      setComments(json.data.comments.content);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (content && editor) {
+      editor.commands.setContent(content);
+    }
+  }, [content, editor]);
+
+  const onClickAddComment = async () => {
+    const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+    const res = await fetch(`${API_URL}/api/v1/posts/comment`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        comment,
+        postId: parseInt(postId),
+      }),
+    });
+
+    const json = await res.json();
+
+    if (json.result === true) {
+      alert("댓글이 등록되었습니다.");
+    }
+  };
+
+  const onClickVote = () => {};
 
   return (
     <div className="post-detail-page">
@@ -79,23 +161,59 @@ export default function PostDetailPage() {
           <EditorContent editor={editor} />
         </div>
         <div className="buttons buttons-end">
-          <div className="btn btn-vote">
+          <div className="btn btn-vote" onClick={onClickVote}>
             <IconUp />
             Vote
           </div>
         </div>
       </div>
       <div className="white-card">
-        <TextField placeholder="Type here your wise suggestion" />
+        <TextField
+          placeholder="Type here your wise suggestion"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
         <div className="buttons buttons-end">
-          <div className="btn btn-cancel">Cancel</div>
-          <div className="btn btn-comment">
+          {/* <div className="btn btn-cancel">Cancel</div> */}
+          <div className="btn btn-comment" onClick={onClickAddComment}>
             <IconComment stroke="white" />
             Comment
           </div>
         </div>
       </div>
-      <div className="white-card comment-item">
+      {comments.map((comment) => (
+        <div className="white-card comment-item" key={`comment-${comment.id}`}>
+          <div className="primary-line"></div>
+          <div className="head">
+            <div className="lead">
+              <Image
+                src="/default_profile.svg" // public 폴더 안의 경로 사용
+                alt="설명 텍스트"
+                width={40} // 필수 속성
+                height={40} // 필수 속성
+              />
+              <div className="detail">
+                <div className="writer">{comment.writerName}</div>
+                <div className="post-time">{comment.createdDate}</div>
+              </div>
+            </div>
+          </div>
+          <div className="editor-content">{comment.comment}</div>
+          <div className="buttons">
+            <div className="left">
+              <div className="btn-up">
+                <IconThumbUp /> ???
+              </div>
+            </div>
+            <div className="right">
+              <div className="btn-hide">
+                <IconAccordionHide /> Hide All Replies
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+      {/* <div className="white-card comment-item">
         <div className="primary-line"></div>
         <div className="head">
           <div className="lead">
@@ -190,7 +308,7 @@ export default function PostDetailPage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

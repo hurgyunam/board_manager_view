@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import IconEye from "@/src/components/icons/Eye";
 import IconComment from "@/src/components/icons/Comment";
+import Link from "next/link";
 
 export interface IPostListItem {
   id: number;
@@ -65,7 +66,11 @@ export default function PostListPage({ boardId }: { boardId: string }) {
   return (
     <div className="post-list-page">
       {posts.map((post) => (
-        <div className="post-item" key={`post-${post.id}`}>
+        <Link
+          className="post-item"
+          key={`post-${post.id}`}
+          href={`/board/${boardId}/${post.id}`}
+        >
           <div className="head">
             <div className="lead">
               <Image
@@ -91,7 +96,7 @@ export default function PostListPage({ boardId }: { boardId: string }) {
               {post.commentCount}
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
